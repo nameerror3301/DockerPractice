@@ -1,0 +1,9 @@
+# Параметры сервиса
+service:
+  version: "v0.0.1"
+  address: "" # INFO: Пустое поле = 0.0.0.0
+  port: 8080
+
+out_service:
+  address: "http://storage.in-net.ex"
+  port: 8080

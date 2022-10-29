@@ -1,0 +1,9 @@
+# Параметры сервиса
+service:
+  version: "v0.0.1"
+  address: ""
+  port: 4040
+
+out_service:
+  address: "http://prep.in-net.ex"
+  port: 8080

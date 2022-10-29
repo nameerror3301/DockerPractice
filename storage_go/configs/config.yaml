@@ -1,0 +1,13 @@
+# Параметры сервиса
+service:
+  version: "v0.0.1"
+  address: ""
+  port: 8080
+
+database: 
+  user: "postgres"
+  password: "admin"
+  host: "heap_db.in-net.ex"
+  port: 5432
+  database: "heap_db"
+  pool: 10

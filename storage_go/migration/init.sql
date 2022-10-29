@@ -1,0 +1,4 @@
+CREATE TABLE data_heap (
+    id SERIAL NOT NULL PRIMARY KEY,
+    payload JSONB NOT NULL
+);
