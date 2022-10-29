@@ -1,0 +1,78 @@
+version: '3'
+
+networks:
+  in-net.ex:
+    driver: bridge
+
+services: 
+  gateway:
+    build: ./gate_go/
+    container_name: gate.in-net.ex
+    networks:
+      - in-net.ex
+    environment:
+      - PATH_CONFIG=/conf.yaml
+      - DRIVER_CONFIG=yaml
+    ports:
+      - 80:4040
+    volumes:
+      - ./gate_go/configs/config.yaml:/conf.yaml:ro
+  
+  prep:
+    build: ./preparer_go/
+    container_name: prep.in-net.ex
+    networks:
+      - in-net.ex
+    environment:
+      - PATH_CONFIG=/conf.yaml
+      - DRIVER_CONFIG=yaml
+    volumes:
+      - ./preparer_go/configs/config.yaml:/conf.yaml:ro
+
+  ### 
+  ### APACHE KAFKA
+  ###
+
+  store:
+    build: ./storage_go/
+    container_name: storage.in-net.ex
+    networks:
+      - in-net.ex
+    environment:
+      - PATH_CONFIG=/conf.yaml
+      - DRIVER_CONFIG=yaml
+    volumes:
+      - ./storage_go/configs/config.yaml:/conf.yaml:ro
+    depends_on:
+      - heap_db
+
+
+  heap_db:
+      image: postgres:14.4
+      container_name: heap_db.in-net.ex
+      networks:
+        - in-net.ex
+      environment:
+          POSTGRES_DB: "heap_db"      
+          POSTGRES_USER: "postgres"         
+          POSTGRES_PASSWORD: "admin" 
+          PGDATA: "/var/lib/postgresql/data/pgdata" 
+      volumes:
+        - ./storage_go/migration:/docker-entrypoint-initdb.d 
+      ports:
+          - 5432:5432
+      deploy:
+        resources:
+          limits:
+            cpus: '2.0'
+            memory: 2048M
+            # pids: 1
+          reservations:
+            cpus: '0.25'
+            memory: 200M
+
+
+
+
+  
+    
