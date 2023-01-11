@@ -26,7 +26,7 @@ To build a project, use docker-compose.yaml in the root directory of the project
 
 ## Developers
 
-- [OneByteForLife](https://github.com/nameerror3301)
+- [OneByteForLife](https://github.com/OneByteForLife)
 - [BukerDevid](https://gitlab.com/BukerDevid)
 
 ## License
